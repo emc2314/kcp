@@ -513,7 +513,7 @@ impl<Output> Kcp<Output> {
             (buf.len() + self.mss as usize - 1) / self.mss as usize
         };
 
-        if count >= self.rcv_wnd || (!self.stream && count >= 256) as usize {
+        if count >= self.rcv_wnd as usize || (!self.stream && count >= 256) {
             debug!("send bufsize={} mss={} too large", buf.len(), self.mss);
             return Err(Error::UserBufTooBig);
         }
